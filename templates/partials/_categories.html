@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="list-group">
+    <form class="d-flex  m-1 p-1" method="get" action= "{% url 'search_blog' %}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" required>
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+    </form>
+    {% for category in categories  %}
+        {% if category.slug == selected_category %} 
+            <a  href="{% url 'blogs_by_category' category.slug %}"
+            class="list-group-item list-group-item-action" 
+            aria-current="true">{{category.name|title}}</a>
+                {% else %}
+            <a href="{% url 'blogs_by_category' category.slug %}"
+            class="list-group-item list-group-item-action" 
+            aria-disabled="true">{{category.name|title}}</a>
+        {% endif %}
+    {% endfor %}
+</div>

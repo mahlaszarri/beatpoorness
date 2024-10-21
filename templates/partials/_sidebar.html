@@ -1,0 +1,67 @@
+{% load static %}
+
+<a class="btn btn-outline-dark justify-content-center" data-bs-toggle="offcanvas"
+   href="#offcanvasExample" role="button" aria-controls="offcanvasExample" style="width: 100px;"> Menu
+</a> 
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <a href={% url 'home' %}><img src="{% static 'image/logo.png' %}"></a>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="list-group">
+            <form class="d-flex  m-1 p-1" method="get" action= "{% url 'search_blog' %}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" required>
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
+        </div>
+
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="btn btn-outline-dark" aria-current="page" href="#">Welcome, {{user.username}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" aria-current="page" href="{% url 'account_login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" aria-current="page" href="{% url 'account_signup' %}">Register</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" href={% url 'home' %}>Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" href={% url 'blogs' %}>All Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" href={% url 'about' %}>About</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-dark d-flex justify-content-start m-1" href={% url 'contact' %}>Contact</a>
+            </li>
+
+            <button class="btn btn-outline-dark dropdown-toggle d-flex justify-content-start m-1" type="button" data-bs-toggle="dropdown">
+                Categories
+            </button>
+            <ul class="dropdown-menu m-1 p-1">
+                {% for category in categories %}
+                {% if category.slug == selected_category %}
+                <a href="{% url 'blogs_by_category' category.slug %}"
+                    class="list-group-item list-group-item-action m-1 p-1"
+                    aria-current="true">{{category.name|title}}</a>
+                {% else %}
+                <a href="{% url 'blogs_by_category' category.slug %}"
+                    class="list-group-item list-group-item-action m-1 p-1"
+                    aria-disabled="true">{{category.name|title}}</a>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </ul>
+    </div>
+</div>

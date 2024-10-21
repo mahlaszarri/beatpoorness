@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}About | {% endblock %}
+
+{% block content %}
+
+  <div class="container-fluid">
+    <img class="mx-auto d-block" src="{% static 'image/banner.png' %}">
+      {% include 'partials/_section.html' %}
+      {% include 'partials/_sidebar.html' %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+              <h4 class="text-center">Kuzey Software Development</h>
+              <p class="text-center">| Projects |</p>
+            </div>
+            <div class="col-md-6">
+              <div><img src="{% static 'image/label.png' %}" class="image_1"></div>
+            </div>
+        </div>
+  </div>
+  
+{% endblock %}

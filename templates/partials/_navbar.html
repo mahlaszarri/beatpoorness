@@ -1,0 +1,38 @@
+<div class="row container-fluid">
+  <nav class="navbar navbar-expand-sm navbar-light p-1 m-1 justify-content-center">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" aria-current="page" href="#">Welcome, {{user.username}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" href={% url 'home' %}>Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" href={% url 'blogs' %}>All Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" href={% url 'about' %}>About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" href={% url 'contact' %}>Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" aria-current="page" href="{% url 'account_login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-secondary m-1" aria-current="page" href="{% url 'account_signup' %}">Register</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+</div>

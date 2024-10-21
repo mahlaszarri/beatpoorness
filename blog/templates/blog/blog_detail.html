@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}Detail and Comment{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid m-1 p-1" >
+  <img class="mx-auto d-block" src="{% static 'image/banner.png' %}">
+    {% include 'partials/_sidebar.html' %}
+      <div class="card m-1 p-1">
+        <div class="row">
+          <div class="col-12">
+            <img src= {{ blog.image.url }} class="img-responsive m-1 " width="200" height="200" alt="..." style="float:left;">
+              <div class="card-header">
+                <h1 class="card-title text-center">{{ blog.title|title }}</h1>
+              </div>
+                <div class="card-body m-1 p-1">
+                  <p class="card-text"><small>{{ blog.description|safe}}</small></p>
+                </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="container-fluid" >
+  <div class="row" >
+    <div class="col-6 p-1 m-1">
+      <div class="card m-1 p-1 mx-auto" style="max-width: 1080px;">
+        <div class="card-body">
+          <h4 class="text-center">{{ comments.count }} | All Comments</h4>
+            <hr>
+                {% for comment in comments %}
+                  <div class="comments">
+                    {{ comment.name }}
+                      <span class=" text-muted font-weight-normal">
+                        {{ comment.created_on }}
+                      </span>
+                          {{ comment.body|linebreaks }}
+                  </div>
+                {% endfor %}
+          </div>
+        </div>
+      </div>
+
+<div class="col p-1 m-1">
+  <div class="card m-1 p-1 mx-auto" style="max-width: 1080px;">
+    <div class="d-flex justify-content-center m-1 p-1">
+      <div class="card-body">
+        {% if new_comment %}
+          <div class="alert alert-success" role="alert">
+            Your Comment Is Awaiting Moderation...
+          </div>
+            {% else %}
+              <h4 id="h4lcomment" class="text-center">Leave a Comment</h4>
+                <form method="blog" class="m-1 p-1">
+                  {% csrf_token %}
+                    {{ comment_form |crispy }}
+                    <hr>
+                      <button type="submit" class="btn btn-outline-dark">Submit</button>
+                  </form>
+              {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  {% endblock %}
+
